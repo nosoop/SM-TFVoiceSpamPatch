@@ -1,0 +1,60 @@
+"Games"
+{
+	"tf"
+	{
+		"Functions"
+		{
+			"CBaseMultiplayerPlayer::ShouldRunRateLimitedCommand(char*)"
+			{
+				"signature"	"CBaseMultiplayerPlayer::ShouldRunRateLimitedCommand(char*)"
+				"callconv"	"thiscall"
+				"this"		"entity"
+				"return"	"bool"
+				"arguments"
+				{
+					"command"
+					{
+						"type"	"charptr"
+					}
+				}
+			}
+		}
+		"MemPatches"
+		{
+			// patches out the early return that happens when `IsSpeaking()` returns true
+			"CTFPlayer::SpeakConceptIfAllowed()::BypassIsSpeaking"
+			{
+				"signature"		"CTFPlayer::SpeakConceptIfAllowed()"
+				"linux"
+				{
+					"offset"	"334h"
+					"verify"	"\x0F\x85\x06\xFD\xFF\xFF"
+					"patch"		"\x90\x90\x90\x90\x90\x90"
+				}
+				"windows"
+				{
+					"offset"	"42h"
+					"verify"	"\x75\x13"
+					"patch"		"\x90\x90"
+				}
+			}
+		}
+		"Signatures"
+		{
+			"CBaseMultiplayerPlayer::ShouldRunRateLimitedCommand(char*)"
+			{
+				// contains unique byte sequence 'D9 55 08 D8 64 CA 14' on Windows
+				"library"	"server"
+				"linux"		"@_ZN22CBaseMultiplayerPlayer27ShouldRunRateLimitedCommandEPKc"
+				"windows"	"\x55\x8B\xEC\x83\xEC\x08\x56\x8B\x75\x2A\x57\x8B\xF9\x85\xF6\x74\x2A\x8D\x45\x2A\x89\x75\x2A\x50\x8D\x8F\x2A\x2A\x2A\x2A"
+			}
+			"CTFPlayer::SpeakConceptIfAllowed()"
+			{
+				// unique string xref "disguiseclass:%s"
+				"library"	"server"
+				"linux"		"@_ZN9CTFPlayer21SpeakConceptIfAllowedEiPKcPcjP16IRecipientFilter"
+				"windows"	"\x55\x8B\xEC\x81\xEC\xE8\x00\x00\x00\x53\x8B\xD9\x89\x5D\xFC"
+			}
+		}
+	}
+}
