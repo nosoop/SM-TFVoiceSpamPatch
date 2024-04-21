@@ -27,9 +27,9 @@
 				"signature"		"CTFPlayer::SpeakConceptIfAllowed()"
 				"linux"
 				{
-					"offset"	"334h"
-					"verify"	"\x0F\x85\x06\xFD\xFF\xFF"
-					"patch"		"\x90\x90\x90\x90\x90\x90"
+					"offset"	"26h"
+					"verify"	"\x74\x2A"
+					"patch"		"\xEB"
 				}
 				"windows"
 				{
