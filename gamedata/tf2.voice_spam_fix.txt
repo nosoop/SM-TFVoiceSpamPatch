@@ -33,9 +33,9 @@
 				}
 				"windows"
 				{
-					"offset"	"42h"
-					"verify"	"\x75\x13"
-					"patch"		"\x90\x90"
+					"offset"	"40h"
+					"verify"	"\x0F\x85\x2A\x2A\x2A\x2A"
+					"patch"		"\x90\x90\x90\x90\x90\x90"
 				}
 			}
 		}
@@ -46,14 +46,14 @@
 				// contains unique byte sequence 'D9 55 08 D8 64 CA 14' on Windows
 				"library"	"server"
 				"linux"		"@_ZN22CBaseMultiplayerPlayer27ShouldRunRateLimitedCommandEPKc"
-				"windows"	"\x55\x8B\xEC\x83\xEC\x08\x56\x8B\x75\x2A\x57\x8B\xF9\x85\xF6\x74\x2A\x8D\x45\x2A\x89\x75\x2A\x50\x8D\x8F\x2A\x2A\x2A\x2A"
+				"windows"	"\x55\x8B\xEC\x83\xEC\x10\x8B\x45\x08\x53\x8B\xD9"
 			}
 			"CTFPlayer::SpeakConceptIfAllowed()"
 			{
 				// unique string xref "disguiseclass:%s"
 				"library"	"server"
 				"linux"		"@_ZN9CTFPlayer21SpeakConceptIfAllowedEiPKcPcjP16IRecipientFilter"
-				"windows"	"\x55\x8B\xEC\x81\xEC\xE8\x00\x00\x00\x53\x8B\xD9\x89\x5D\xFC"
+				"windows"	"\x55\x8B\xEC\x81\xEC\xF4\x00\x00\x00\x53\x8B\xD9"
 			}
 		}
 	}
