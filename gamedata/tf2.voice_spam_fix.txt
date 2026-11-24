@@ -25,13 +25,13 @@
 			"CTFPlayer::SpeakConceptIfAllowed()::BypassIsSpeaking"
 			{
 				"signature"		"CTFPlayer::SpeakConceptIfAllowed()"
-				"linux"
+				"linux" // patches a jnz at the start of the function
 				{
-					"offset"	"26h"
-					"verify"	"\x74\x2A"
+					"offset"	"2Ah"
+					"verify"	"\x75\x2A"
 					"patch"		"\xEB"
 				}
-				"windows"
+				"windows" // it's a patch on a jnz, which is still correct
 				{
 					"offset"	"40h"
 					"verify"	"\x0F\x85\x2A\x2A\x2A\x2A"
@@ -43,7 +43,10 @@
 		{
 			"CBaseMultiplayerPlayer::ShouldRunRateLimitedCommand(char*)"
 			{
-				// contains unique byte sequence 'D9 55 08 D8 64 CA 14' on Windows
+				// "CTFPlayer::ClientCommand" contains both "addcond" and "removecond" as unique strings in a really big jumptable-like function
+				// in turn calls "CBaseMultiplayerPlayer::ClientCommand" contains the string 'ignoremsg' it that also later calls "CBaseMultiplayerPlayer::ShouldRunRateLimitedCommand"
+				// do a quick code comparison like checking if both still has cmp with $0FFFFFFFF
+				// and yes, i did all that just for the signature to not have changed
 				"library"	"server"
 				"linux"		"@_ZN22CBaseMultiplayerPlayer27ShouldRunRateLimitedCommandEPKc"
 				"windows"	"\x55\x8B\xEC\x83\xEC\x10\x8B\x45\x08\x53\x8B\xD9"
