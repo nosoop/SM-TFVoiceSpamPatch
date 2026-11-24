@@ -31,7 +31,7 @@
 					"verify"	"\x75\x2A"
 					"patch"		"\xEB"
 				}
-				"windows" // it's a patch on a jnz, which is still correct
+				"windows" // patches a jnz a bit down from the start
 				{
 					"offset"	"40h"
 					"verify"	"\x0F\x85\x2A\x2A\x2A\x2A"
