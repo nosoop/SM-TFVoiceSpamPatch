@@ -25,11 +25,11 @@
 			"CTFPlayer::SpeakConceptIfAllowed()::BypassIsSpeaking"
 			{
 				"signature"		"CTFPlayer::SpeakConceptIfAllowed()"
-				"linux" // patches a jnz at the start of the function
+				"linux" // patches je (!IsSpeaking()) -> nop; jmp
 				{
-					"offset"	"2Ah"
-					"verify"	"\x75\x2A"
-					"patch"		"\xEB"
+					"offset"	"66h"
+					"verify"	"\x0F\x84"
+					"patch"		"\x90\xE9"
 				}
 				"windows" // patches a jnz a bit down from the start
 				{
